@@ -1,0 +1,223 @@
+.lists-container {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.list-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: $white;
+  padding: 2px 4px 2px 0;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+
+  &:hover {
+    background-color: $gray;
+  }
+
+  span:first-child {
+    padding: 8px;
+  }
+
+  span:nth-child(2) {
+    flex: 1;
+    margin-left: 4px;
+    font-size: 14px;
+  }
+
+  span:nth-child(3) {
+    background-color: $gray;
+    color: $black;
+    padding: 2px 8px;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+		min-width: 8px;
+    line-height: 1;
+    text-align: center;
+  }
+}
+
+.show-more-lists,
+.show-more-groups {
+	width: 60px;
+  background-color: $gray;
+  color: $black;
+  font-size: 14px;
+  font-family: $font-main;
+  padding: 0.5rem;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+	text-align: right;
+  transition: background 0.3s ease;
+	border-radius: 20px;
+
+  &:hover {
+    background-color: $gray;
+  }
+}
+
+.create-list,
+.create-group {
+	width: 100%;
+	background-color: $gray;
+  color: $black;
+  font-size: 14px;
+  font-family: $font-main;
+  font-weight: 400;
+  padding: 0.5rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 30px;
+  margin-top: 10px;
+	margin-right: 0;
+	text-align: left;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background-color: $gray;
+  }
+}
+
+.create-task-button {
+  width: 100%;
+  background-color: $black;
+  color: $white;
+  font-size: 16px;
+  font-family: $font-main;
+  padding: 0.75rem 1rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 30px;
+	margin-top: auto;
+  text-align: center;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.9)
+  }
+}
+
+.alignment {
+  display: flex;
+}
+
+.toggle-sidebar {
+	position: relative;
+	margin-left: -60px;
+  background-color: $white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s ease;
+	z-index: 1 !important;
+
+  &:hover {
+    background-color: $gray;
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+    fill: $black;
+  }
+
+  .img-responsive {
+    filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+  }
+}
+
+.img-responsive {
+  filter: brightness(0) saturate(100%) invert(52%) sepia(0%) saturate(0%) hue-rotate(186deg) brightness(92%) contrast(92%);
+
+	max-width: 100%;
+	height: 100%;
+}
+
+.task-menu {
+	width: 30px;
+	height: auto;
+}
+
+.groups-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  .group-card {
+    width: calc(50% - 12px);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+
+    .group-avatar-box {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background-color: $gray;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+
+    .group-info {
+      padding: 6px 2px;
+      background-color: $white;
+
+      .group-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: $black;
+        margin: 0;
+      }
+
+      .group-count {
+        font-size: 12px;
+        opacity: 0.6;
+        margin: 0;
+      }
+    }
+  }
+}
+
+.task-avatars {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-left: -4px;
+}
+
+.user-avatar1 {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #888;
+  margin-left: -6px;
+  border: 1px solid $white;
+  z-index: 1;
+  position: relative;
+
+  &:first-child {
+    margin-left: 0; 
+  }
+}

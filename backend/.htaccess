@@ -1,0 +1,6 @@
+# backend/.htaccess
+RewriteEngine On
+
+# pass Authorization header through to PHP (helps on some Apache+PHP setups)
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%1]
+SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1

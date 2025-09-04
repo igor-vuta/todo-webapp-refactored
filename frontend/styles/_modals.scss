@@ -1,0 +1,112 @@
+
+.modal-create-task,
+.modal-create-list,
+.modal-create-group,
+.modal-edit-task {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.4);
+
+  &.hidden {
+    display: none !important;
+  }
+}
+
+.modal-content {
+  background-color: $white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  h2 {
+    margin: 0 0 10px;
+    font-size: 20px;
+    font-weight: 600;
+    color: $black;
+  }
+
+  p.task-context {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 8px;
+  }
+
+  input[type="text"],
+  input[type="date"],
+  input[type="time"],
+  select,
+  textarea {
+    font-size: 14px;
+    font-family: $font-main;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: $gray;
+    color: $black;
+    width: 100%;
+    box-sizing: border-box;
+
+    &:focus {
+      outline: none;
+      border-color: #999;
+    }
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  label {
+    font-size: 14px;
+    color: $black;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 1rem;
+  }
+
+  button {
+    font-size: 14px;
+    font-family: $font-main;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+
+    &.danger {
+      background-color: #e74c3c;
+      color: $white;
+
+      &:hover {
+        background-color: darken(#e74c3c, 8%);
+      }
+    }
+
+    &:not(.danger) {
+      background-color: $black;
+      color: $white;
+
+      &:hover {
+        background-color: darken($black, 5%);
+      }
+    }
+  }
+}

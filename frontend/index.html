@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Todo WebApp</title>
+		<link rel="stylesheet" href="styles/main.css" />
+		<link
+			rel="icon"
+			type="image/png"
+			href="/images/favicon/favicon-96x96.png"
+			sizes="96x96"
+		/>
+		<link
+			rel="icon"
+			type="image/svg+xml"
+			href="/images/favicon/favicon.svg"
+		/>
+		<link
+			rel="shortcut icon"
+			href="/images/favicon/favicon.ico"
+		/>
+		<link
+			rel="apple-touch-icon"
+			sizes="180x180"
+			href="/images/favicon/apple-touch-icon.png"
+		/>
+		<link
+			rel="manifest"
+			href="/images/favicon/site.webmanifest"
+		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+	<body>
+		<!-- Sidebar -->
+		<aside class="sidebar">
+			<section class="private-lists">
+				<h2>Private</h2>
+				<ul class="lists-container">
+					<!-- Dynamic list items from DB will be injected here -->
+				</ul>
+				<button class="create-list">+ Create New List</button>
+			</section>
+
+			<section class="groups">
+				<h2>Group</h2>
+				<div class="groups-container">
+					<div class="group-card">
+						<div class="group-avatar-box">
+							<div class="group-avatars layout-X">
+								<div class="user-avatar">A</div>
+								...
+							</div>
+						</div>
+						<div class="group-info">
+							<h3 class="group-title">Group Name</h3>
+							<p class="group-count">3 People</p>
+						</div>
+					</div>
+					<!-- Dynamic groups from DB will be injected here -->
+				</div>
+				<button class="create-group">+ Create New Group</button>
+			</section>
+		</aside>
+
+		<!-- Main Section -->
+		<main class="main-section">
+			<header class="main-header">
+				<div class="alignment">
+					<button class="toggle-sidebar">
+						<img
+							class="img-responsive"
+							src="/images/icons_svg/expand-alt-svgrepo-com.svg"
+							alt="Toggle sidebar"
+						/>
+					</button>
+					<div class="left-side">
+						<h1>
+							Good Morning, <span class="username"><!-- username --></span> 👋
+						</h1>
+						<span class="current-date"><!-- date --></span>
+					</div>
+				</div>
+				<div class="date-filter">
+					<div class="task-filter-container">
+						<select id="task-filter" class="custom-dropdown">
+							<option value="" selected>Filter by:</option>
+							<option value="today">Today</option>
+							<option value="week">Next 7 Days</option>
+							<option value="month">Next 30 Days</option>
+						</select>
+					</div>
+				</div>
+			</header>
+
+			<section class="todo-list">
+				<!-- Tasks will be dynamically rendered here -->
+			</section>
+
+			<button class="create-task-button">+ Create New Task</button>
+		</main>
+
+		<!-- Modal 1: Create New Task -->
+		<div class="modal-create-task hidden">
+			<div class="modal-content">
+				<h2>Create New Task</h2>
+				<p class="task-context"></p>
+				<input type="text" placeholder="Task Name" />
+				<select class="task-list-select">
+					<option>No List</option>
+					<!-- Dynamic options -->
+				</select>
+				<input type="date" />
+				<div class="time-grid"><!-- Optional time controls --></div>
+				<label>
+					Start Time:
+					<input type="time" class="task-start-time" />
+				</label>
+				<label>
+					End Time:
+					<input type="time" class="task-end-time" />
+				</label>
+				<button class="save-task">Save Changes</button>
+			</div>
+		</div>
+
+		<!-- Modal 2: Create New List -->
+		<div class="modal-create-list hidden">
+			<div class="modal-content">
+				<h2>Create New List</h2>
+				<input type="text" id="new-list-name" placeholder="List Name" />
+				<button class="save-list">Save List</button>
+				<button class="close-list-modal">Cancel</button>
+			</div>
+		</div>
+
+		<!-- Modal 3: Create New Group -->
+		<div class="modal-create-group hidden" id="group-modal">
+			<div class="modal-content">
+				<h2>Create Group</h2>
+				<input type="text" id="group-name" placeholder="Group name" />
+				<textarea
+					id="group-invites"
+					placeholder="Invite users (comma-separated usernames)"
+				></textarea>
+				<div class="modal-actions">
+					<button id="create-group-btn">Create</button>
+					<button class="close-modal">Cancel</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal 4: Edit Task -->
+		<div class="modal-edit-task hidden" id="edit-task-modal">
+			<div class="modal-content">
+				<h2>Edit Task</h2>
+				<input type="text" id="edit-task-title" placeholder="Task title" />
+				<input type="date" id="edit-task-date" />
+				<input type="time" id="edit-task-start" />
+				<input type="time" id="edit-task-end" />
+
+				<select id="edit-task-list"></select>
+				<div id="edit-task-group-info" class="task-hint"></div>
+
+				<select id="edit-task-status">
+					<option value="pending">Pending</option>
+					<option value="in_progress">In Progress</option>
+					<option value="completed">Completed</option>
+				</select>
+
+				<div class="modal-actions">
+					<button id="update-task-btn">Save</button>
+					<button id="delete-task-btn" class="danger">Delete</button>
+					<button id="close-edit-modal">Cancel</button>
+				</div>
+			</div>
+		</div>
+
+		<div id="notifications" class="notification-container"></div>
+
+		<!-- JS scripts -->
+		<script src="scripts/config.js" type="module"></script>
+		<script src="scripts/lists.js" type="module"></script>
+		<script src="scripts/tasks.js" type="module"></script>
+		<script src="scripts/ui.js" type="module"></script>
+		<script src="scripts/main.js" type="module"></script>
+		<script src="scripts/groups.js" type="module"></script>
+	</body>
+</html>

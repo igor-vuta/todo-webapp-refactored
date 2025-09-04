@@ -1,0 +1,12 @@
+.hidden {
+  display: none;
+}
+
+body {
+  font-family: $font-main;
+  background-color: $gray; 
+  color: $black;
+  font-size: 14px;
+  margin: 0;
+  display: flex; 
+}

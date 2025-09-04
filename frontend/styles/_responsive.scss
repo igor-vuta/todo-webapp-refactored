@@ -1,0 +1,142 @@
+@media only screen and (max-width: 768px) {
+  // Стили только для ≤ 768px и выше 480px
+  @media only screen and (min-width: 481px) {
+    .main-header {
+			.alignment {
+				div {
+					h1 {
+						font-size: 18px;
+					}
+					.username{
+						font-size: 18px !important;
+					}
+					span {
+						font-size: 16px !important;
+					}
+				}
+			}
+		}
+
+    .sidebar {
+      width: 50%;
+      background-color: $white;
+      margin: 10px;
+      padding: 5px 10px 10px 10px;
+      border-radius: 8px;
+      height: calc(96.5vh - 20px);
+      overflow-y: auto;
+      position: sticky;
+      top: 0;
+      align-self: flex-start;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+
+      h2 {
+        margin: 5px 0 10px 0;
+        font-size: 24px;
+        font-weight: 600;
+        font-family: $font-main;
+        color: $black;
+      }
+    }
+
+    .main-section {
+      width: calc(50% - 40px);
+      margin: 0 10px;
+      height: calc(100vh - 40px);
+      padding: 10px;
+
+      .toggle-sidebar {
+        margin-left: -40px;
+        width: 40px;
+        aspect-ratio: 1/1;
+      }
+
+      &.expanded {
+        .task-avatars,
+        .task-time {
+          display: flex;
+        }
+      }
+
+      .task-avatars,
+      .task-time {
+        display: none;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  // Стили только для ≤ 480px
+
+  .main-header {
+    .alignment {
+      div {
+        h1 {
+          font-size: 16px;
+        }
+				.username{
+					font-size: 16px !important;
+				}
+        span {
+          font-size: 14px !important;
+        }
+      }
+    }
+  }
+
+  .sidebar {
+    font-size: 14px;
+    width: 100% !important;
+    background-color: $white;
+    margin: 10px;
+    padding: 5px 10px 10px 10px;
+    border-radius: 8px;
+    height: calc(96.5vh - 20px);
+    overflow-y: auto;
+    position: sticky;
+    top: 0;
+    align-self: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    h2 {
+      margin: 5px 0 10px 0;
+      font-size: 14px;
+      font-weight: 600;
+      font-family: $font-main;
+      color: $black;
+    }
+  }
+
+  .main-section {
+    display: none;
+    width: calc(50% - 40px);
+    margin: 0 10px;
+    height: calc(100vh - 40px);
+    padding: 10px;
+
+    .toggle-sidebar {
+      margin-left: -40px;
+      width: 40px;
+      aspect-ratio: 1/1;
+    }
+
+    &.expanded {
+      display: flex;
+      width: calc(100% - 120px) !important;
+
+      .task-item {
+        max-width: 95vw;
+      }
+    }
+
+    .task-avatars,
+    .task-time {
+      display: none;
+    }
+  }
+}
