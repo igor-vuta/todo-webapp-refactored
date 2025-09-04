@@ -1,0 +1,44 @@
+services:
+  db:
+    container_name: todo-db
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: todo_app
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1"]
+      interval: "5s"
+      timeout: "5s"
+      retries: 10
+
+  php:
+    container_name: todo-php
+    build:
+      context: .
+      dockerfile: Dockerfile.php
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_HOST: db
+      DB_NAME: todo_app
+      DB_USER: root
+      DB_PASS: ""
+      JWT_SECRET: "change-me"
+    ports:
+      - "8000:80"
+    volumes:
+      - ./backend:/var/www/html
+
+  frontend:
+    container_name: todo-frontend
+    image: node:20-alpine
+    working_dir: /app
+    command: ["sh", "-c", "npx serve -l 5173 frontend"]
+    volumes:
+      - ./:/app
+    ports:
+      - "5173:5173"

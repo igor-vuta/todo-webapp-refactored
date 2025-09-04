@@ -1,0 +1,26 @@
+cat > .gitignore << 'EOF'
+# macOS
+.DS_Store
+
+# Node / Frontend
+node_modules/
+pnpm-lock.yaml
+yarn.lock
+npm-debug.log*
+dist/
+.vite/
+
+# Maps & cache
+*.map
+
+# PHP / Composer (if you add Composer later)
+vendor/
+composer.lock
+
+# Env / secrets
+.env
+.env.local
+
+# Docker
+docker-data/
+EOF
