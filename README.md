@@ -15,6 +15,39 @@ Modern task management web application with lists, groups, authentication, and r
 
 ---
 
+## 🚀 Quick Start
+
+### Local Development (2 minutes)
+
+```bash
+# Start with Docker
+docker-compose up -d
+
+# Initialize database
+docker exec -i todo-db mysql -u root todo_app < database/schema.sql
+docker exec -i todo-db mysql -u root todo_app < database/seeds.sql
+docker exec -i todo-db mysql -u root todo_app < database/indexes.sql
+```
+
+✅ App running at:
+- **Frontend**: http://localhost:5173
+- **Backend**: http://localhost:8000
+
+### Cloud Deployment
+
+```bash
+# Railway (Recommended - PHP + MySQL)
+./deploy-railway.sh
+
+# Render.com (Docker)
+./deploy-render.sh
+
+# Fly.io (Global Edge)
+./deploy-fly.sh
+```
+
+---
+
 ## 📸 Screenshots
 
 <details>
@@ -137,6 +170,39 @@ Example:
 
 git commit -m "feat(tasks): add priority filter"
 
+
+---
+
+## 🌐 Cloud Hosting
+
+Deploy to **FREE** cloud services:
+
+### 🏆 Railway (Recommended)
+```bash
+./deploy-railway.sh
+```
+- ✅ Native PHP + MySQL support
+- ✅ $5/month free credits (~500 hours)
+- ✅ 5-minute setup
+
+### Other Options
+
+| Service | Command | Free Tier |
+|---------|---------|-----------|
+| **Render** | `./deploy-render.sh` | 750 hrs/month |
+| **Fly.io** | `./deploy-fly.sh` | 3 free VMs |
+
+### Environment Variables
+
+Generate a secure JWT secret:
+```bash
+openssl rand -base64 32
+```
+
+Set in your platform:
+- `JWT_SECRET` - Your generated secret
+- `CORS_ORIGINS` - Your frontend URLs
+- `APP_ENV` - `production`
 
 ---
 

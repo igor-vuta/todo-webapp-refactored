@@ -1,10 +1,18 @@
 <?php
 // backend/middlewares/cors.php
 
-$allowedOrigins = [
-  'http://localhost:5173',
-  // add production frontends here later
-];
+// Get allowed origins from environment or use defaults
+$envOrigins = getenv('CORS_ORIGINS') ?: '';
+$allowedOrigins = array_filter(array_map('trim', explode(',', $envOrigins)));
+
+// Add default local origins for development
+if (empty($allowedOrigins)) {
+  $allowedOrigins = [
+    'http://localhost:5173',
+    'http://localhost:3000',
+    'http://127.0.0.1:5173',
+  ];
+}
 
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
 if (in_array($origin, $allowedOrigins, true)) {

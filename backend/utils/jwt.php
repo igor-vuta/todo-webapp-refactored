@@ -2,8 +2,19 @@
 
 class JWT
 {
-    private static $secret_key = 'DMUK2025!'; 
+    private static $secret_key;
     private static $algo = 'HS256';
+
+    private static function getSecretKey()
+    {
+        if (self::$secret_key === null) {
+            self::$secret_key = getenv('JWT_SECRET') ?: 'DMUK2025!';
+            if (self::$secret_key === 'DMUK2025!' && getenv('APP_ENV') === 'production') {
+                error_log('WARNING: Using default JWT secret in production!');
+            }
+        }
+        return self::$secret_key;
+    }
 
     public static function generate($payload, $exp_minutes = 60)
     {
@@ -13,7 +24,7 @@ class JWT
         $base64UrlHeader = self::base64UrlEncode(json_encode($header));
         $base64UrlPayload = self::base64UrlEncode(json_encode($payload));
 
-        $signature = hash_hmac('sha256', "$base64UrlHeader.$base64UrlPayload", self::$secret_key, true);
+        $signature = hash_hmac('sha256', "$base64UrlHeader.$base64UrlPayload", self::getSecretKey(), true);
         $base64UrlSignature = self::base64UrlEncode($signature);
 
         return "$base64UrlHeader.$base64UrlPayload.$base64UrlSignature";
@@ -36,7 +47,7 @@ class JWT
             return false;
         }
 
-        $signature_check = hash_hmac('sha256', "$base64UrlHeader.$base64UrlPayload", self::$secret_key, true);
+        $signature_check = hash_hmac('sha256', "$base64UrlHeader.$base64UrlPayload", self::getSecretKey(), true);
         $base64UrlSignatureCheck = self::base64UrlEncode($signature_check);
 
         if (!hash_equals($base64UrlSignatureCheck, $base64UrlSignature)) {
