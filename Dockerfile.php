@@ -1,10 +1,25 @@
-# Simple PHP + Apache image with mysqli/pdo_mysql
-FROM php:8.2-apache
+# Use PHP-FPM with Caddy (simple, reliable, no Apache issues)
+FROM php:8.2-fpm-alpine
 
+# Install Caddy
+RUN apk add --no-cache caddy
+
+# Install PHP extensions
 RUN docker-php-ext-install pdo pdo_mysql
 
-# Apache doc root is /var/www/html; we mount backend there via volumes
-# Enable Apache mod_rewrite if needed later
-RUN a2enmod rewrite
+# Copy application
+COPY backend /var/www/html
+
+# Copy Caddyfile
+COPY Caddyfile /etc/caddy/Caddyfile
+
+# Copy and set up startup script
+COPY start.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/start.sh
+
+# Set proper permissions
+RUN chown -R www-data:www-data /var/www/html
 
 EXPOSE 80
+
+CMD ["/usr/local/bin/start.sh"]
