@@ -36,7 +36,8 @@ if ($count > 0) {
 }
 
 echo "Empty database detected - applying schema...\n";
-$sql = file_get_contents('/docker-init/database/schema.sql');
+$schemaDir = getenv('INIT_SQL_DIR') ?: '/docker-init/database';
+$sql = file_get_contents("{$schemaDir}/schema.sql");
 
 // Drop "--" comment lines, then split the mysqldump into individual statements
 // (no procedures/triggers in this dump).
