@@ -1,0 +1,84 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main, staging, develop]
+  push:
+    branches: [main, staging, develop]
+
+jobs:
+  lint-php:
+    name: Lint PHP
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      - name: Syntax-check every PHP file
+        run: |
+          find backend railway-init-db.php railway-seed-demo.php \
+            -name '*.php' -print0 | xargs -0 -n1 php -l
+
+  build-image:
+    name: Build deployment image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Dockerfile.railway
+        run: docker build -f Dockerfile.railway -t todo-app:ci .
+
+      - name: Verify Caddy and PHP config are valid
+        run: |
+          docker run --rm --entrypoint sh todo-app:ci -c \
+            'caddy validate --config /etc/caddy/Caddyfile --adapter caddyfile && php -v'
+
+  verify-schema:
+    name: Verify schema applies
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+          MYSQL_DATABASE: todo_app
+        ports: ['3306:3306']
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1"
+          --health-interval=5s --health-timeout=5s --health-retries=10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: pdo_mysql
+
+      - name: Apply schema and demo seed
+        env:
+          DB_HOST: 127.0.0.1
+          DB_PORT: '3306'
+          DB_NAME: todo_app
+          DB_USER: root
+          DB_PASS: ''
+          INIT_SQL_DIR: database
+        run: |
+          php railway-init-db.php
+          php railway-seed-demo.php
+
+      - name: Re-run to prove both scripts are idempotent
+        env:
+          DB_HOST: 127.0.0.1
+          DB_PORT: '3306'
+          DB_NAME: todo_app
+          DB_USER: root
+          DB_PASS: ''
+          INIT_SQL_DIR: database
+        run: |
+          php railway-init-db.php
+          php railway-seed-demo.php
