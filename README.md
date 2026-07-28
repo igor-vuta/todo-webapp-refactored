@@ -9,6 +9,16 @@
 
 Modern task management web application with lists, groups, authentication, and role-based features.
 
+**[▶ Try the live demo](https://todo-app-production-5509.up.railway.app)**
+
+Sign in with the shared demo account — no registration needed:
+
+| Email | Password |
+|---|---|
+| `demo@todoapp.dev` | `Demo1234!` |
+
+The demo database is seeded with example lists, groups and tasks. Anyone can sign in with it, so treat any data you add as public.
+
 </div>
 
 
