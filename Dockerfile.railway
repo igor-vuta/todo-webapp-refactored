@@ -1,0 +1,28 @@
+# Railway all-in-one image: Caddy serves the frontend at / and the PHP API at /api
+FROM php:8.2-fpm-alpine
+
+# Caddy web server
+RUN apk add --no-cache caddy
+
+# PHP extensions
+RUN docker-php-ext-install pdo pdo_mysql
+
+# Backend (served under /api)
+COPY backend /var/www/html
+
+# Frontend (served at /)
+COPY frontend /srv/frontend
+
+# Database init scripts (applied on first boot via PDO)
+COPY database /docker-init/database
+COPY railway-init-db.php /docker-init/init-db.php
+COPY railway-seed-demo.php /docker-init/seed-demo.php
+
+# Caddy config + startup script
+COPY Caddyfile.railway /etc/caddy/Caddyfile
+COPY railway-start.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/start.sh && chown -R www-data:www-data /var/www/html
+
+EXPOSE 80
+
+CMD ["/usr/local/bin/start.sh"]

@@ -35,16 +35,13 @@ docker exec -i todo-db mysql -u root todo_app < database/indexes.sql
 
 ### Cloud Deployment
 
+Deployed on **Railway** as a single container (Caddy serves the frontend at `/` and the PHP API at `/api`):
+
 ```bash
-# Railway (Recommended - PHP + MySQL)
-./deploy-railway.sh
-
-# Render.com (Docker)
-./deploy-render.sh
-
-# Fly.io (Global Edge)
-./deploy-fly.sh
+railway up --service todo-app
 ```
+
+The database schema and demo data are applied automatically on first boot.
 
 ---
 
@@ -175,22 +172,15 @@ git commit -m "feat(tasks): add priority filter"
 
 ## 🌐 Cloud Hosting
 
-Deploy to **FREE** cloud services:
-
-### 🏆 Railway (Recommended)
+### 🏆 Railway
 ```bash
-./deploy-railway.sh
+railway up --service todo-app
 ```
 - ✅ Native PHP + MySQL support
-- ✅ $5/month free credits (~500 hours)
-- ✅ 5-minute setup
+- ✅ Single image: frontend at `/`, API at `/api` (no CORS setup needed)
+- ✅ Schema + demo data seeded automatically on first boot
 
-### Other Options
-
-| Service | Command | Free Tier |
-|---------|---------|-----------|
-| **Render** | `./deploy-render.sh` | 750 hrs/month |
-| **Fly.io** | `./deploy-fly.sh` | 3 free VMs |
+Build config lives in [`railway.json`](railway.json) → [`Dockerfile.railway`](Dockerfile.railway).
 
 ### Environment Variables
 
@@ -201,7 +191,7 @@ openssl rand -base64 32
 
 Set in your platform:
 - `JWT_SECRET` - Your generated secret
-- `CORS_ORIGINS` - Your frontend URLs
+- `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASS` - Database connection
 - `APP_ENV` - `production`
 
 ---
