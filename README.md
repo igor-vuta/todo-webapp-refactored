@@ -19,6 +19,12 @@ Sign in with the shared demo account — no registration needed:
 
 The demo database is seeded with example lists, groups and tasks. Anyone can sign in with it, so treat any data you add as public.
 
+<br />
+
+<img src="./frontend/screenshots/tasks.png" alt="Task dashboard - a sidebar of private lists (Home, University, School, Grocery) with per-list counts above a Group section showing Study Buddies and Weekly Grocery Crew as member-avatar clusters; the main panel greets the user by name and lists tasks as checkboxes with time ranges, shared-member avatars and delete buttons, under a Filter by dropdown" width="90%" />
+
+<em>Task dashboard - private lists and shared groups on the left, the day's tasks on the right. Avatars on a row mark a task shared with a group.</em>
+
 </div>
 
 
@@ -57,22 +63,25 @@ The database schema and demo data are applied automatically on first boot.
 
 ## 📸 Screenshots
 
-<details>
-  <summary><b>📸 View screenshots</b></summary>
+<div align="center">
 
-### 🔐 Login
-![Login](./frontend/screenshots/login.png)
+<img src="./frontend/screenshots/login.png" alt="Sign In card centred on a plain background, with Email and Password fields, a Login button, and a No account? Sign Up link" width="80%" />
 
-### 📝 Create Task
-![Create Task](./frontend/screenshots/create.png)
+<em>Sign in - JWT issued here, with the role carried in the token.</em>
 
-### ✏️ Edit Task
-![Edit Task](./frontend/screenshots/edit.png)
+<br /><br />
 
-### 📋 Task Dashboard
-![Tasks](./frontend/screenshots/tasks.png)
+<img src="./frontend/screenshots/create.png" alt="Create New Task modal reading 'Task will be created in list: University', with fields for the task title, a list dropdown, a date, a start time and an end time, above a Save Changes button" width="80%" />
 
-</details>
+<em>Creating a task - the modal opens against whichever list is selected.</em>
+
+<br /><br />
+
+<img src="./frontend/screenshots/edit.png" alt="Edit Task modal with the existing values loaded: title, date, start and end time, a list dropdown and a status dropdown set to Pending, above Save, Delete and Cancel buttons" width="80%" />
+
+<em>Editing a task - status and list are both changeable, and Delete is available inline.</em>
+
+</div>
 
 ---
 
