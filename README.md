@@ -95,7 +95,7 @@ The startup script attempts schema initialization and demo seeding on each launc
 | `DB_NAME`, `DB_USER`, `DB_PASS` | MySQL database and credentials |
 | `APP_ENV` | Set to `production` for the hosted environment |
 
-The previously listed Railway demo hostname no longer resolves, so this repository currently has no verified public demo link. For local development, the checked-in Compose file supplies its own database and API configuration.
+The previous Railway deployment is unavailable, so this repository currently has no verified public demo link. For local development, the checked-in Compose file supplies its own database and API configuration.
 
 ## Checks
 
