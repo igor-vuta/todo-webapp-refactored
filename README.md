@@ -11,6 +11,12 @@
 
 <!-- project-presentation:end -->
 
+<!-- project-pattern:start -->
+
+![Three task rows with checked boxes and horizontal task descriptions.](.github/project-pattern.svg)
+
+<!-- project-pattern:end -->
+
 # ToDo WebApp (Refactored)
 
 A task manager with private lists, shared groups and a PHP/MySQL API. The frontend uses HTML, CSS and JavaScript modules; authentication uses JWTs.
